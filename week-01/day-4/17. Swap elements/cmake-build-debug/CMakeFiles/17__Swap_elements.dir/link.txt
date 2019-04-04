@@ -1,0 +1,3 @@
+"D:\Programok\CLion\CLion 2019.1\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\17__Swap_elements.dir/objects.a
+D:\Programok\CLion\MinGW\mingw32\bin\ar.exe cr CMakeFiles\17__Swap_elements.dir/objects.a @CMakeFiles\17__Swap_elements.dir\objects1.rsp
+D:\Programok\CLion\MinGW\mingw32\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\17__Swap_elements.dir/objects.a -Wl,--no-whole-archive  -o 17__Swap_elements.exe -Wl,--out-implib,lib17__Swap_elements.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\17__Swap_elements.dir\linklibs.rsp
