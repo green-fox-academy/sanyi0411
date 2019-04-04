@@ -26,5 +26,6 @@ int factorio (int &a) {
     for (int i = 1; i <= a; i++) {
         sum *= i;
     }
+    a = sum;  //If this live is acive both n and overwriteThis will receive a new value, if not only the latter.
     return sum;
 }
