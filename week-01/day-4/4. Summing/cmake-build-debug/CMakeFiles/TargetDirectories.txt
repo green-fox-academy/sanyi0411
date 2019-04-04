@@ -1,0 +1,3 @@
+D:/Sulis/Greenfox/sanyi0411/week-01/day-4/4. Summing/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/Sulis/Greenfox/sanyi0411/week-01/day-4/4. Summing/cmake-build-debug/CMakeFiles/4__Summing.dir
+D:/Sulis/Greenfox/sanyi0411/week-01/day-4/4. Summing/cmake-build-debug/CMakeFiles/edit_cache.dir
