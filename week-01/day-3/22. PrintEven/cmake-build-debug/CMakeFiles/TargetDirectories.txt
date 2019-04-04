@@ -1,0 +1,3 @@
+D:/Sulis/Greenfox/sanyi0411/week-01/day-3/22. PrintEven/cmake-build-debug/CMakeFiles/22__PrintEven.dir
+D:/Sulis/Greenfox/sanyi0411/week-01/day-3/22. PrintEven/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Sulis/Greenfox/sanyi0411/week-01/day-3/22. PrintEven/cmake-build-debug/CMakeFiles/rebuild_cache.dir
