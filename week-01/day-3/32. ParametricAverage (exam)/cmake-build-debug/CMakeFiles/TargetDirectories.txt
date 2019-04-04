@@ -1,0 +1,3 @@
+D:/Sulis/Greenfox/sanyi0411/week-01/day-3/32. ParametricAverage (exam)/cmake-build-debug/CMakeFiles/32__ParametricAverage__exam_.dir
+D:/Sulis/Greenfox/sanyi0411/week-01/day-3/32. ParametricAverage (exam)/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Sulis/Greenfox/sanyi0411/week-01/day-3/32. ParametricAverage (exam)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
