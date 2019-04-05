@@ -14,19 +14,20 @@ int main(int argc, char* args[]) {
     // The pyramid should have as many lines as the number was
     int a;
 
-    std::cout <<"Please enter how many rows the pyramid should have: \n";
+    std::cout <<"How many rows should the pyramid have: \n";
     std::cin >> a;
 
-    for(int i = 1, k = 0; i <= a; ++i, k = 0) {
+    for(int i = 1; i <= a; i++) {
+        int k = 0;
         for(int b = 1; b <= a-i; b++)
         {
             std::cout <<"  ";
         }
 
-        while(k != 2*i-1)
+        while(k != 2 * i - 1)
         {
             std::cout << "* ";
-            ++k;
+            k++;
         }
         std::cout << std::endl;
     }
