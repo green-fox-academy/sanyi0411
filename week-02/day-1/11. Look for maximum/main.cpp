@@ -28,7 +28,8 @@ int main() {
         }
     }
 
-    std::cout << "The biggest number in the array is: " << max << std::endl << "This number's memory address is: " << &array[indexOfHighestNumber] << std::endl;
+    std::cout << "The biggest number in the array is: " << max
+        << "\nThis number's memory address is: " << &array[indexOfHighestNumber] << "\n";
 
-return 0;
+    return 0;
 }
