@@ -17,15 +17,11 @@ return 0;
 }
 
 int *minimum (int array[], int length) {
-    int *ptr = nullptr;
-    int smallest = array[0];
-    int indexOfSmallest = 0;
+    int *ptr = &array[0];
     for (int i = 1; i < length; i++) {
-        if (array[i] < smallest) {
-            smallest = array[i];
-            indexOfSmallest = i;
+        if (array[i] < *ptr) {
+            ptr = &array[i];
         }
     }
-    ptr = &array[indexOfSmallest];
     return ptr;
 }
