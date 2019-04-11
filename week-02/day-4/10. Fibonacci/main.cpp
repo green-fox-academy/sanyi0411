@@ -7,7 +7,7 @@ int main() {
     //Define a recursive fibonacci(n) method that returns the nth fibonacci number,
     // with n=0 representing the start of the sequence.
 
-    std::cout << fibonacci(12) << std::endl;
+    std::cout << fibonacci(12) << std::endl;  //Tested for the 10th, 11th and 12th Fibonacci numbers
 
     return 0;
 }
