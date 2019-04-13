@@ -34,22 +34,10 @@ void hexagon_fractal(int x, int y, int size)
     SDL_RenderDrawLine(gRenderer, x+size/4, y+size, x, y+size/2);           //bottom left line
     SDL_RenderDrawLine(gRenderer, x, y+size/2, x+size/4, y);                //top left line
 
-    hexagon_fractal(x+size/8, y, size/2);                               //top hexagon
+    hexagon_fractal(x+size/8, y, size/2);                                   //top hexagon
     hexagon_fractal(x+size/2, y+size/4, size/2);                            //middle hexagon
-    hexagon_fractal(x+size/8, y+size/2, size/2);                        //bottom hexagon
+    hexagon_fractal(x+size/8, y+size/2, size/2);                            //bottom hexagon
 
-    /*
-    SDL_RenderDrawLine(gRenderer, x-size/4, y-size/2, x+size/4, y-size/2);  //top line
-    SDL_RenderDrawLine(gRenderer, x+size/4, y-size/2, x+size/2, y);         //top right line
-    SDL_RenderDrawLine(gRenderer, x+size/2, y, x+size/4, y+size);           //bottom right line
-    SDL_RenderDrawLine(gRenderer, x+size/4, y+size, x-size/4, y+size);      //bottom line
-    SDL_RenderDrawLine(gRenderer, x-size/4, y+size, x-size/2, y);           //bottom left line
-    SDL_RenderDrawLine(gRenderer, x-size/2, y, x-size/4, y-size/2);         //top left line
-
-    hexagon_fractal(x-size/4, y+size/2, size/2);
-    hexagon_fractal(x+size/4, y, size/2);
-    hexagon_fractal(x-size/4, y+size/2, size/2);
-     */
 }
 
 bool init()
