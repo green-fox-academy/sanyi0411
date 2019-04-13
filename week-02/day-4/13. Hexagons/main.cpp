@@ -22,7 +22,7 @@ SDL_Renderer* gRenderer = nullptr;
 
 void hexagon_fractal(int x, int y, int size)
 {
-    if (size < 150) {
+    if (size < 15) {
         return;
     }
     SDL_SetRenderDrawColor(gRenderer, 000, 000, 000, 255);
@@ -34,9 +34,9 @@ void hexagon_fractal(int x, int y, int size)
     SDL_RenderDrawLine(gRenderer, x+size/4, y+size, x, y+size/2);           //bottom left line
     SDL_RenderDrawLine(gRenderer, x, y+size/2, x+size/4, y);                //top left line
 
-    hexagon_fractal((x+size/4)/2, y, size/2);
-    hexagon_fractal(x+size/2, y+size/4, size/2);
-    hexagon_fractal((x+size/4)/2, y+size/2, size/2);
+    hexagon_fractal(x+size/8, y, size/2);                               //top hexagon
+    hexagon_fractal(x+size/2, y+size/4, size/2);                            //middle hexagon
+    hexagon_fractal(x+size/8, y+size/2, size/2);                        //bottom hexagon
 
     /*
     SDL_RenderDrawLine(gRenderer, x-size/4, y-size/2, x+size/4, y-size/2);  //top line
