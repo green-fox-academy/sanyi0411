@@ -39,6 +39,7 @@ void writeToFile(std::string path, std::string word, int lines)
         for (int i = 0; i < lines; i++) {
             myFile << word << std::endl;
         }
+        myFile.close();
     } catch (std::ifstream::failure &e) {
         std::cout << e.what() << std::endl;
     }
