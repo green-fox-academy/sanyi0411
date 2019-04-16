@@ -19,7 +19,7 @@ int main()
 int numberOfLines(std::string fileName)
 {
     std::ifstream myFile;
-    myFile.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+    myFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     int numberOfLines = 0;
     try {
         myFile.open(fileName);
