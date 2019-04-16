@@ -36,6 +36,8 @@ bool copyLines(std::string read, std::string write)
         while (getline(readFromThis, line)) {
             writeToThis << line << std::endl;
         }
+        readFromThis.close();
+        writeToThis.close();
 
     } catch  (std::fstream::failure &e) {
         std::cout << e.what() << std::endl;
