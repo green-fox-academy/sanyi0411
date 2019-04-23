@@ -36,12 +36,12 @@ void Garden::watering (int waterAmount)
     float individualWater = waterAmount / needsWater;
     for (int i = 0; i < _flowers.size(); i++) {
         if(!_flowers[i].enoughWater()) {
-            _flowers[i].setHasWater((_flowers[i].getHasWater() + individualWater) * 0.75);
+            _flowers[i].setHasWater(_flowers[i].getHasWater() + (individualWater * 0.75));
         }
     }
     for (int i = 0; i < _trees.size(); i++) {
         if(!_trees[i].enoughWater()) {
-            _trees[i].setHasWater((_trees[i].getHasWater() + individualWater) * 0.4);
+            _trees[i].setHasWater(_trees[i].getHasWater() + (individualWater * 0.4));
         }
     }
     Garden::info();
