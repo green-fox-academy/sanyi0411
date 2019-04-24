@@ -11,16 +11,16 @@
 
 class Carrier {
 public:
-    Carrier(int ammoOnBoard, int health, std::string name);
+    Carrier(int carrierAmmo, int carrierHealth, std::string carrierName);
 
     void addAircraft(Aircraft aircraft);
     void fillAllAircrafts();
 
 private:
     std::vector<Aircraft> _aircrafts;
-    int _ammoOnBoard;
-    int _health;
-    std::string _name;
+    int _carrierAmmo;
+    int _carrierHealth;
+    std::string _carrierName;
 };
 
 
