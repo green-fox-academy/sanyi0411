@@ -21,5 +21,7 @@ int fibonacci (int n) {
         } else {
             return 0;
         }
+    } else {
+        throw std::invalid_argument( "received negative value" );
     }
 }
