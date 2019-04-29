@@ -8,7 +8,10 @@
 SDL_Texture *texture = nullptr;
 
 Images::Images()
-{}
+{
+    _xOfHero = 0;
+    _yOfHero = 0;
+}
 
 int maze [10][10] = {{1, 1, 1, 0, 1, 0, 1, 1, 1, 1},
                      {1, 1, 1, 0, 1, 0, 1, 0, 0, 1},
@@ -55,18 +58,17 @@ void Images::loadSurface(SDL_Renderer *renderer, int screenSize)
     }
 }
 
-void Images::loadHero(SDL_Renderer *renderer, int screenSize)
+void Images::loadHero(SDL_Renderer *renderer, int screenSize, int x, int y)
 {
     SDL_Surface *loadedSurface = IMG_Load("../img/hero-down.png"); //path is the string that contains where the image is
     if (loadedSurface == nullptr) {
         SDL_Log("Image could not be loaded! SDL Error: %s", SDL_GetError());
     }
-    //SDL_Renderer* object
     texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
     SDL_FreeSurface(loadedSurface);
 
 
-    SDL_Rect dstrect = {0, 0, screenSize / 10, screenSize / 10};
+    SDL_Rect dstrect = {x * screenSize / 10, y * screenSize / 10, screenSize / 10, screenSize / 10};
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
     SDL_RenderPresent(renderer);
 }
@@ -106,13 +108,12 @@ void Images::loadSkeleton(SDL_Renderer *renderer, int screenSize, int numberOfSk
 
     int skeletons = 0;
     while (skeletons < numberOfSkeletons) {
-        base:
-        int x = rand() % 9 + 1;
-        int y = rand() % 9 + 1;
-
-        if (maze[y][x] != 1) {
-            goto base;
-        }
+        int x;
+        int y;
+        do {
+            x = rand() % 9 + 1;
+            y = rand() % 9 + 1;
+        } while (maze[y][x] != 1);
 
         if (pair.first != x && pair.second != y) {
             SDL_Rect dstrect = {x * (screenSize / 10), y * (screenSize / 10), screenSize / 10, screenSize / 10};
@@ -137,4 +138,24 @@ std::pair<int, int> Images::randomCoordinates()
     }
 
     return std::make_pair(x, y);
+}
+
+int Images::getXOfHero() const
+{
+    return _xOfHero;
+}
+
+int Images::getYOfHero() const
+{
+    return _yOfHero;
+}
+
+void Images::setXOfHero(int xOfHero)
+{
+    _xOfHero = xOfHero;
+}
+
+void Images::setYOfHero(int yOfHero)
+{
+    _yOfHero = yOfHero;
 }

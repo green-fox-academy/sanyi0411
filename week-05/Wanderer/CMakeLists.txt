@@ -18,6 +18,6 @@ include_directories(${SDL2_GFX}/inc)
 file(GLOB gfx_inc "${SDL2_GFX}/inc/*.h")
 file(GLOB gfx_src "${SDL2_GFX}/src/*.c")
 
-add_executable(Wanderer main.cpp ${gfx_inc} ${gfx_src} loadImages.cpp loadImages.cpp Images.cpp Images.h)
+add_executable(Wanderer main.cpp ${gfx_inc} ${gfx_src} Images.cpp Images.h Movement.cpp Movement.h)
 
 target_link_libraries(Wanderer ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})

@@ -18,11 +18,22 @@
 class Images {
 public:
     Images();
+
+    int getXOfHero() const;
+    int getYOfHero() const;
+
+    void setXOfHero(int xOfHero);
+    void setYOfHero(int yOfHero);
+
     void loadSurface(SDL_Renderer *renderer, int screenSize);
-    void loadHero(SDL_Renderer *renderer, int screenSize);
+    void loadHero(SDL_Renderer *renderer, int screenSize, int x, int y);
     std::pair<int, int> loadBoss(SDL_Renderer *renderer, int screenSize);
     void loadSkeleton(SDL_Renderer *renderer, int screenSize, int numberOfSkeletons, std::pair<int, int> pair);
     std::pair<int, int> randomCoordinates();
+
+private:
+    int _xOfHero;
+    int _yOfHero;
 };
 
 

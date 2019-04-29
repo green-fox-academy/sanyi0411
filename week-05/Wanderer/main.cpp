@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include "Images.h"
+#include "Movement.h"
 
 //Screen dimension constants
 const int SCREEN_SIZE = 800;
@@ -19,10 +20,11 @@ void close();
 //The window we'll be rendering to
 SDL_Window *gWindow = nullptr;
 
+//The surface contained by the window
+SDL_Surface* gScreenSurface = nullptr;
+
 //The window renderer
 SDL_Renderer *gRenderer = nullptr;
-
-//SDL_Texture *texture = nullptr;
 
 bool init()
 {
@@ -88,7 +90,7 @@ int main(int argc, char *args[])
 
     Images imageObject;
     imageObject.loadSurface(gRenderer, SCREEN_SIZE);
-    imageObject.loadHero(gRenderer, SCREEN_SIZE);
+    imageObject.loadHero(gRenderer, SCREEN_SIZE, 0, 0);
     imageObject.loadSkeleton(gRenderer, SCREEN_SIZE, 2, imageObject.loadBoss(gRenderer, SCREEN_SIZE));
 
     //Main loop flag
@@ -104,6 +106,26 @@ int main(int argc, char *args[])
             //User requests quit
             if (e.type == SDL_QUIT) {
                 quit = true;
+            } else if (e.type == SDL_KEYDOWN) {
+                switch (e.key.keysym.sym) {
+                    case SDLK_UP:
+                        imageObject.setYOfHero(imageObject.getYOfHero() - 1);
+                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        break;
+                    case SDLK_DOWN:
+
+                        imageObject.setYOfHero(imageObject.getYOfHero() + 1);
+                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        break;
+                    case SDLK_LEFT:
+                        imageObject.setXOfHero(imageObject.getXOfHero() - 1);
+                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        break;
+                    case SDLK_RIGHT:
+                        imageObject.setXOfHero(imageObject.getXOfHero() + 1);
+                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        break;
+                }
             }
         }
 
