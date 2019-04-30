@@ -3,6 +3,7 @@
 //
 
 #include "Hero.h"
+#include "Floor.h"
 
 Hero::Hero()
 {
@@ -10,9 +11,11 @@ Hero::Hero()
     _yOfCharacter = 0;
 }
 
-void Hero::loadHero(SDL_Renderer *renderer, int screenSize, int x, int y)
+Floor floor1;
+
+void Hero::loadHero(SDL_Renderer *renderer, int screenSize, int x, int y, std::string picture)
 {
-    SDL_Surface *loadedSurface = IMG_Load("../img/hero-down.png");
+    SDL_Surface *loadedSurface = IMG_Load(picture.c_str());
     if (loadedSurface == nullptr) {
         SDL_Log("Image could not be loaded! SDL Error: %s", SDL_GetError());
     }
@@ -23,6 +26,8 @@ void Hero::loadHero(SDL_Renderer *renderer, int screenSize, int x, int y)
     SDL_Rect dstrect = {x * screenSize / 10, y * screenSize / 10, screenSize / 10, screenSize / 10};
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
     SDL_RenderPresent(renderer);
+
+    floor1._occupied[y][x] = 1;
 }
 
 void Hero::deleteHero(SDL_Renderer *renderer, int screenSize, int x, int y)
@@ -38,4 +43,6 @@ void Hero::deleteHero(SDL_Renderer *renderer, int screenSize, int x, int y)
     SDL_Rect dstrect = {x * screenSize / 10, y * screenSize / 10, screenSize / 10, screenSize / 10};
     SDL_RenderCopy(renderer, floorTexture, NULL, &dstrect);
     SDL_RenderPresent(renderer);
+
+    floor1._occupied[y][x] = 0;
 }

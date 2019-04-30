@@ -18,9 +18,9 @@
 
 class Enemy : public Character {
 public:
-    std::pair<int, int> loadBoss(SDL_Renderer *renderer, int screenSize);
-    void loadSkeleton(SDL_Renderer *renderer, int screenSize, int numberOfSkeletons, std::pair<int, int> bossPosition);
-    std::pair<int, int> randomCoordinates();
+    void loadBoss(SDL_Renderer *renderer, int screenSize);
+    void loadSkeletonWithoutKey(SDL_Renderer *renderer, int screenSize, int numberOfSkeletons);
+    void loadSkeletenWithKey(SDL_Renderer *renderer, int screenSize);
 
 private:
     SDL_Texture *texture = nullptr;

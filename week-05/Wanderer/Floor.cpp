@@ -32,7 +32,7 @@ void Floor::loadSurface(SDL_Renderer *renderer, int screenSize)
 
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
-            if (maze[j][i] == 1) {
+            if (_maze[j][i] == 1) {
                 SDL_Rect dstrect = {i * screenSize / 10, j * screenSize / 10, screenSize / 10, screenSize / 10};
                 SDL_RenderCopy(renderer, floorTexture, NULL, &dstrect);
                 SDL_RenderPresent(renderer);

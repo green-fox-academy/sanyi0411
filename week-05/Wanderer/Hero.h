@@ -11,12 +11,13 @@
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include "Character.h"
+#include "Floor.h"
 
 class Hero : public Character {
 public:
     Hero();
 
-    void loadHero(SDL_Renderer *renderer, int screenSize, int x, int y);
+    void loadHero(SDL_Renderer *renderer, int screenSize, int x, int y, std::string picture);
     void deleteHero(SDL_Renderer *renderer, int screenSize, int x, int y);
 private:
     SDL_Texture *texture = nullptr;
