@@ -4,12 +4,12 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <stdio.h>
-#include "Images.h"
-#include "Movement.h"
+#include "Floor.h"
+#include "Hero.h"
+#include "Enemy.h"
 
 //Screen dimension constants
 const int SCREEN_SIZE = 800;
-
 
 //Starts up SDL and creates window
 bool init();
@@ -70,17 +70,16 @@ void close()
     SDL_DestroyWindow(gWindow);
     gWindow = nullptr;
     gRenderer = nullptr;
-    //SDL_DestroyTexture(texture);
 
     IMG_Quit();
 
     SDL_Quit();
 }
 
-
-
 int main(int argc, char *args[])
 {
+    srand(time(NULL));
+
     //Start up SDL and create window
     if (!init()) {
         SDL_Log("Failed to initialize!");
@@ -88,10 +87,13 @@ int main(int argc, char *args[])
         return -1;
     }
 
-    Images imageObject;
-    imageObject.loadSurface(gRenderer, SCREEN_SIZE);
-    imageObject.loadHero(gRenderer, SCREEN_SIZE, 0, 0);
-    imageObject.loadSkeleton(gRenderer, SCREEN_SIZE, 2, imageObject.loadBoss(gRenderer, SCREEN_SIZE));
+    Floor floor;
+    Hero hero;
+    Enemy enemies;
+
+    floor.loadSurface(gRenderer, SCREEN_SIZE);
+    hero.loadHero(gRenderer, SCREEN_SIZE, 0, 0);
+    enemies.loadSkeleton(gRenderer, SCREEN_SIZE, 2, enemies.loadBoss(gRenderer, SCREEN_SIZE));
 
     //Main loop flag
     bool quit = false;
@@ -109,21 +111,32 @@ int main(int argc, char *args[])
             } else if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
-                        imageObject.setYOfHero(imageObject.getYOfHero() - 1);
-                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        if (hero.getYOfCharacter() > 0 && floor.maze[hero.getYOfCharacter() - 1][hero.getXOfCharacter()] == 1) {
+                            hero.deleteHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                            hero.setYOfCharacter(hero.getYOfCharacter() - 1);
+                            hero.loadHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                        }
                         break;
                     case SDLK_DOWN:
-
-                        imageObject.setYOfHero(imageObject.getYOfHero() + 1);
-                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        if (hero.getYOfCharacter() < 9 && floor.maze[hero.getYOfCharacter() + 1][hero.getXOfCharacter()] == 1) {
+                            hero.deleteHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                            hero.setYOfCharacter(hero.getYOfCharacter() + 1);
+                            hero.loadHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                        }
                         break;
                     case SDLK_LEFT:
-                        imageObject.setXOfHero(imageObject.getXOfHero() - 1);
-                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        if (hero.getXOfCharacter() > 0 && floor.maze[hero.getYOfCharacter()][hero.getXOfCharacter() - 1] == 1) {
+                            hero.deleteHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                            hero.setXOfCharacter(hero.getXOfCharacter() - 1);
+                            hero.loadHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                        }
                         break;
                     case SDLK_RIGHT:
-                        imageObject.setXOfHero(imageObject.getXOfHero() + 1);
-                        imageObject.loadHero(gRenderer, SCREEN_SIZE, imageObject.getXOfHero(), imageObject.getYOfHero());
+                        if (hero.getXOfCharacter() < 9 && floor.maze[hero.getYOfCharacter()][hero.getXOfCharacter() + 1] == 1) {
+                            hero.deleteHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                            hero.setXOfCharacter(hero.getXOfCharacter() + 1);
+                            hero.loadHero(gRenderer, SCREEN_SIZE, hero.getXOfCharacter(), hero.getYOfCharacter());
+                        }
                         break;
                 }
             }
