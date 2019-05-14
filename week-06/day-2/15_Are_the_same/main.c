@@ -21,19 +21,23 @@ int main()
     printf("Enter the second string:");
     scanf("%s", string2);
 
-    if(areTheSame(string1, string2)) printf("They are the same\n");
-    else printf("They are not the same\n");
+    if(areTheSame(string1, string2))
+        printf("They are the same\n");
+    else
+        printf("They are not the same\n");
 
     return 0;
 }
 
 int areTheSame (char string1[], char string2[])
 {
-    if (strlen(string1) != strlen(string2)) return 0;
+    if (strlen(string1) != strlen(string2))
+        return 0;
     for (int i = 0; i < strlen(string1); ++i) {
         char s1 = tolower(string1[i]);
         char s2 = tolower(string2[i]);
-        if (s1 != s2) return 0;
+        if (s1 != s2)
+            return 0;
     }
     return 1;
 }

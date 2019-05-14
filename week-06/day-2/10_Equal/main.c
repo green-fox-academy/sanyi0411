@@ -17,14 +17,18 @@ int main()
     printf("Second number:");
     scanf("%d", &b);
 
-    if(areTheyEqual(a, b)) printf("They are equal\n");
-    else printf("They are not equal\n");
+    if(areTheyEqual(a, b))
+        printf("They are equal\n");
+    else
+        printf("They are not equal\n");
 
     return 0;
 }
 
 int areTheyEqual (int a, int b)
 {
-    if (a == b) return 1;
-    else return 0;
+    if (a == b)
+        return 1;
+    else
+        return 0;
 }

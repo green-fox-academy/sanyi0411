@@ -14,16 +14,20 @@ int main()
     printf("Please enter a positive number:");
     scanf("%d", &input);
 
-    if (isPrime(input)) printf("This number is a prime\n");
-    else printf("This number is not a prime\n");
+    if (isPrime(input))
+        printf("This number is a prime\n");
+    else
+        printf("This number is not a prime\n");
 
     return 0;
 }
 
 int isPrime (int input)
 {
-    if (input == 1) return 0;
-    if (input == 2) return 1;
+    if (input == 1)
+        return 0;
+    if (input == 2)
+        return 1;
 
     int t = 3;
     int prime = 1;

@@ -15,14 +15,18 @@ int main()
     printf("Please enter a number (interger):");
     scanf("%d", &input);
 
-    if (oddOrEven(input)) printf("It is an even number\n");
-    else printf("It is an odd number\n");
+    if (oddOrEven(input))
+        printf("It is an even number\n");
+    else
+        printf("It is an odd number\n");
 
     return 0;
 }
 
 int oddOrEven (int input)
 {
-    if (input % 2 == 0) return 1;
-    else return 0;
+    if (input % 2 == 0)
+        return 1;
+    else
+        return 0;
 }

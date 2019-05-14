@@ -13,8 +13,10 @@ int main()
     printf("Please enter your age:\n");
     scanf ("%d", &age);
 
-    if(oldEnough(age)) printf("You can buy alcohol\n");
-    else printf("You are too young to buy alcohol\n");
+    if(oldEnough(age))
+        printf("You can buy alcohol\n");
+    else
+        printf("You are too young to buy alcohol\n");
 
     return 0;
 }

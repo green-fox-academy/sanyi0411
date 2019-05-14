@@ -39,16 +39,20 @@ int main()
     printf("Second number:");
     scanf("%d", &number2);
 
-    if (sumOfDigitsAreEqual(number1, number2)) printf("The sum of digits in these numbers are equal\n");
-    else printf("The sum of digits in these numbers are not equal\n");
+    if (sumOfDigitsAreEqual(number1, number2))
+        printf("The sum of digits in these numbers are equal\n");
+    else
+        printf("The sum of digits in these numbers are not equal\n");
 
     return 0;
 }
 
 int sumOfDigitsAreEqual (int nummber1, int number2)
 {
-    if (sumOfDigits(nummber1) == sumOfDigits(number2)) return 1;
-    else return 0;
+    if (sumOfDigits(nummber1) == sumOfDigits(number2))
+        return 1;
+    else
+        return 0;
 }
 
 int sumOfDigits (int number)
