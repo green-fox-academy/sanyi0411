@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #define currentYear 2019
 
 typedef enum
