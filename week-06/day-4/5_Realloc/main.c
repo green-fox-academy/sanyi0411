@@ -36,7 +36,9 @@ int main()
     }
 
     free(pointer);
+    pointer = NULL;
     free(ptr2);
+    ptr2 = NULL;
 
     return 0;
 }

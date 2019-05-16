@@ -42,5 +42,10 @@ int main()
         printf("%d\n", intPtrOdd[l]);
     }
 
+    free(intPtrEven);
+    intPtrEven = NULL;
+    free(intPtrOdd);
+    intPtrOdd = NULL;
+
     return 0;
 }
