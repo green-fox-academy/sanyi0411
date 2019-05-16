@@ -23,6 +23,7 @@ int main()
     }
 
     free(pointer);
+    pointer = NULL;
 
     return 0;
 }
