@@ -35,5 +35,8 @@ int main()
         printf("%d", ptr2[k]);
     }
 
+    free(pointer);
+    free(ptr2);
+
     return 0;
 }
