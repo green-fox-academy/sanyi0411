@@ -24,6 +24,8 @@ void delete_at_index(linked_list_t *head, int index);
 
 int delete_by_value(linked_list_t *head, int value);
 
+linked_list_t *search_by_value(linked_list_t *head, int value);
+
 int main()
 {
     linked_list_t *head = create_linked_list();
@@ -40,7 +42,8 @@ int main()
 
     insert_at_index(head, 72, 3);
 
-    printf("We deleted %d node(s)\n", delete_by_value(head, 55));
+    printf("%d\n", search_by_value(head, 72)->next->data);
+
     print_list(head);
 
     if(!is_empty(head)) {
@@ -159,4 +162,19 @@ int delete_by_value(linked_list_t *head, int value)
             iterator = iterator->next;
     }
     return deleted_nodes;
+}
+
+linked_list_t *search_by_value(linked_list_t *head, int value)
+{
+    linked_list_t *result = NULL;
+    linked_list_t *iterator = head;
+    while (iterator->next != NULL) {
+        if (iterator->data == value) {
+            result = iterator;
+        }
+        
+        if(iterator->next != NULL)
+            iterator = iterator->next;
+    }
+    return result;
 }
