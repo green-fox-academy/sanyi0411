@@ -86,6 +86,11 @@ void insert_front(linked_list_t *head, int data)
 
 void insert_at_index(linked_list_t *head, int data, int index)
 {
+    if (index <= 0) {
+        printf("Index 0 is reserved for the head. You can insert at index 1 or higher!\n");
+        return;
+    }
+
     linked_list_t *newNode = (linked_list_t *) malloc((sizeof(linked_list_t)));
     newNode->data = data;
 
@@ -135,6 +140,11 @@ int is_empty(linked_list_t *head)
 
 void delete_at_index(linked_list_t *head, int index)
 {
+    if (index <= 0) {
+        printf("Index 0 is reserved for the head. You can delete at index 1 or higher!\n");
+        return;
+    }
+
     linked_list_t *iterator = head;
     for (int i = 0; i < index - 1; ++i) {
         iterator = iterator->next;
@@ -172,7 +182,7 @@ linked_list_t *search_by_value(linked_list_t *head, int value)
         if (iterator->data == value) {
             result = iterator;
         }
-        
+
         if(iterator->next != NULL)
             iterator = iterator->next;
     }
