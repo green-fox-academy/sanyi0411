@@ -3,4 +3,4 @@ project(2_Vector C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(2_Vector main.c)
+add_executable(2_Vector main.c vector.h vector.c)
