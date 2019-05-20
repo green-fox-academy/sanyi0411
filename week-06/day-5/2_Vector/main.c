@@ -4,21 +4,22 @@
 
 int main()
 {
-    vector_t *myVector = create_vector(7);
+    vector_t *myVector = create_vector(11);
 
     push_back(myVector, 11);
 
-    insert_at_index(myVector, 3, 0);
+    insert_at_index(myVector, 11, 0);
 
     insert_at_index(myVector, 5, 1);
 
     push_back(myVector, 13);
+    push_back(myVector, 11);
+    push_back(myVector, 5);
+    push_back(myVector, 7);
 
-    delete_by_index(myVector, 2);
-
+    unique(myVector);
+    
     print_vector(myVector);
-
-    printf("%d\n", search_vector(myVector, 10));
 
     return 0;
 }

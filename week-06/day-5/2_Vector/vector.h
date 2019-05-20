@@ -27,6 +27,10 @@ int search_vector(vector_t *input, int value);
 
 int vector_size(vector_t *input);
 
+void bubble_sort(vector_t *input);
+
+void unique(vector_t *input);
+
 void print_vector(vector_t *input);
 
 #endif //INC_2_VECTOR_VECTOR_H

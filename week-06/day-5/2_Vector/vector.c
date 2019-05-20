@@ -51,18 +51,6 @@ void delete_by_index(vector_t *input, int index)
     input->vector = (int *) realloc(input->vector, input->size * sizeof(int));
 }
 
-int vector_size(vector_t *input)
-{
-    return input->size;
-}
-
-void print_vector(vector_t *input)
-{
-    for (int i = 0; i < input->size; ++i) {
-        printf("%d\n", input->vector[i]);
-    }
-}
-
 int search_vector(vector_t *input, int value)
 {
     for (int i = 0; i < input->size; ++i) {
@@ -71,4 +59,41 @@ int search_vector(vector_t *input, int value)
         }
     }
     return -1;
+}
+
+int vector_size(vector_t *input)
+{
+    return input->size;
+}
+
+void bubble_sort(vector_t *input)
+{
+    for (int i = 0; i < input->size - 1; ++i) {
+        for (int j = 0; j < input->size - 1; ++j) {
+            if(input->vector[j] > input->vector[j + 1]) {
+                int temp = input->vector[j];
+                input->vector[j] = input->vector[j + 1];
+                input->vector[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void unique(vector_t *input)
+{
+    for (int i = 1; i < input->size; ++i) {
+        for (int j = 0; j < i; ++j) {
+            if (input->vector[i] == input->vector[j]) {
+                delete_by_index(input, i);
+                i--;
+            }
+        }
+    }
+}
+
+void print_vector(vector_t *input)
+{
+    for (int i = 0; i < input->size; ++i) {
+        printf("%d\n", input->vector[i]);
+    }
 }
