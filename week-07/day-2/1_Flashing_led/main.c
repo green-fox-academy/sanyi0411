@@ -12,8 +12,6 @@
 #include "stm32f7xx.h"
 #include "stm32746g_discovery.h"
 			
-
-
 int main(void)
 {
     HAL_Init();
@@ -26,9 +24,9 @@ int main(void)
         /* If button is pressed do something */
         if (BSP_PB_GetState(BUTTON_KEY) == 1) {
             BSP_LED_On(LED1);
-            HAL_Delay(200);
+            HAL_Delay(250);
             BSP_LED_Off(LED1);
-            HAL_Delay(200);
+            HAL_Delay(250);
         } else {
             BSP_LED_Off(LED1);
         }
