@@ -34,37 +34,18 @@ int main(void) {
 	HAL_Init();
 	init_pins();
 
-	uint32_t red_led1 = (1 << 10);
-	uint32_t red_led2 = (1 << 9);
-	uint32_t red_led3 = (1 << 8);
-	uint32_t red_led4 = (1 << 7);
+	uint32_t red_led[] = {(1 << 10), (1 << 9), (1 << 8), (1 << 7)};
+
+	int counter = 0;
+	int direction = -1;
 
 	while (1) {
-
-		GPIOF->BSRR = red_led1;
+		if (counter == 3 || counter == 0)
+			direction *= -1;
+		GPIOF->BSRR = red_led[counter];
 		HAL_Delay(70);
-		GPIOF->BSRR = red_led1 << 16;
+		GPIOF->BSRR = red_led[counter] << 16;
 		HAL_Delay(70);
-		GPIOF->BSRR = red_led2;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led2 << 16;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led3;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led3 << 16;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led4;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led4 << 16;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led3;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led3 << 16;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led2;
-		HAL_Delay(70);
-		GPIOF->BSRR = red_led2 << 16;
-		HAL_Delay(70);
-
+		counter += direction;
 	}
 }
