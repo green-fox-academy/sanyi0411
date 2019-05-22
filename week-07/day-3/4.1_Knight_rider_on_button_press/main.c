@@ -52,8 +52,5 @@ int main(void) {
 			HAL_Delay(70);
 			counter += direction;
 		}
-		for(int i = 0; i < 4; ++i) {
-			GPIOF->BSRR = red_led[i] << 16;
-		}
 	}
 }
