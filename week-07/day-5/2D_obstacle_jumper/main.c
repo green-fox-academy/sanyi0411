@@ -10,8 +10,11 @@ void draw_track();
 void draw_player(int x, int y);
 void jump();
 
-int player_x;
-int player_y;
+int player_x = 45;
+int player_y = 150;
+int last_jump = 0;
+int is_jumping = 0;
+int last_position_change_time = 0;
 
 RNG_HandleTypeDef randomNumber;
 
@@ -42,15 +45,21 @@ int main(void)
 	random_init();
 
 	while (1) {
+		BSP_LCD_Clear(LCD_COLOR_WHITE);
 		draw_track();
-		draw_player(45, 150);
+		draw_player(player_x, player_y);
 
 		TS_StateTypeDef ts_state;
 
 		BSP_TS_GetState(&ts_state);
 		if (ts_state.touchDetected) {
-			jump();
+			int current_time = HAL_GetTick();
+			if ((last_jump + 1000) < current_time) {
+				is_jumping = 1;
+				last_jump = HAL_GetTick();
+			}
 		}
+		jump();
 	}
 }
 
@@ -59,7 +68,6 @@ void draw_track()
 	BSP_LCD_DrawHLine(0, 200, 480);
 }
 
-
 void draw_player(int x, int y)
 {
 	//Head
@@ -67,19 +75,58 @@ void draw_player(int x, int y)
 	//Neck and body
 	BSP_LCD_DrawVLine(x, y + 6, 22);
 	//Legs
-	BSP_LCD_DrawLine(x, y + 28, x + 6, 200);
-	BSP_LCD_DrawLine(x, y + 28, x - 6, 200);
+	BSP_LCD_DrawLine(x, y + 28, x + 6, y + 50);
+	BSP_LCD_DrawLine(x, y + 28, x - 6, y + 50);
 	//Arms
-	BSP_LCD_DrawLine(x, y + 10, x + 4, 177);
-	BSP_LCD_DrawLine(x, y + 10, x - 4, 177);
+	BSP_LCD_DrawLine(x, y + 10, x + 4, y + 22);
+	BSP_LCD_DrawLine(x, y + 10, x - 4, y + 22);
 }
 
 void jump()
 {
+	if (is_jumping) {
+		int current_time = HAL_GetTick();
+		if ((last_position_change_time + 100) > current_time)
+			return;
+		switch (player_y)
+		{
+		case 150:
+			player_y = 138;
+			break;
+		case 138:
+			player_y = 130;
+			break;
+		case 130:
+			player_y = 125;
+			break;
+		case 125:
+			player_y = 122;
+			break;
+		case 122:
+			player_y = 120;
+			break;
+		case 120:
+			player_y = 123;
+			break;
+		case 123:
+			player_y = 126;
+			break;
+		case 126:
+			player_y = 131;
+			break;
+		case 131:
+			player_y = 139;
+			break;
+		case 139:
+			player_y = 150;
+			is_jumping = 0;
+			break;
+		}
+		last_position_change_time = HAL_GetTick();
+
+	}
 
 }
-
-
 
 void EXTI15_10_IRQHandler()
 {
