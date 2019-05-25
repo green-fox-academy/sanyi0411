@@ -2,21 +2,22 @@
 #include "stm32746g_discovery.h"
 #include "stm32746g_discovery_lcd.h"
 #include "stm32746g_discovery_ts.h"
-
-static void Error_Handler(void);
-static void SystemClock_Config(void);
+#include "SystemClockConfig.h"
 
 void draw_track();
 void draw_player(int x, int y, uint32_t color);
 void jump();
 void draw_obstacle();
-void moving_obstacle();
+void move_obstacle();
+void change_position();
 
 int player_x = 45;
 int player_y = 150;
 int last_jump = 0;
 int is_jumping = 0;
 int player_last_position_change_time = 0;
+int position = 1;
+int running_timer = 0;
 
 int obstacle_x = 465;
 int obstacle_y = 185;
@@ -95,13 +96,51 @@ void draw_track()
 
 void draw_player(int x, int y, uint32_t color)
 {
+	int current_time = HAL_GetTick();
+	if ((running_timer + 300) < current_time) {
+		change_position();
+		running_timer = HAL_GetTick();
+	}
+
 	BSP_LCD_SetTextColor(color);
 	BSP_LCD_DrawCircle(x, y, 6);
 	BSP_LCD_DrawVLine(x, y + 6, 22);
-	BSP_LCD_DrawLine(x, y + 28, x + 6, y + 50);
-	BSP_LCD_DrawLine(x, y + 28, x - 6, y + 50);
-	BSP_LCD_DrawLine(x, y + 10, x + 4, y + 22);
-	BSP_LCD_DrawLine(x, y + 10, x - 4, y + 22);
+
+	if (position == 1) {
+		BSP_LCD_DrawLine(x, y + 10, x + 4, y + 22);
+		BSP_LCD_DrawLine(x + 4, y + 22, x + 7, y + 12);
+
+		BSP_LCD_DrawLine(x, y + 10, x - 7, y + 16);
+		BSP_LCD_DrawLine(x - 7, y + 16, x - 7, y + 24);
+
+		BSP_LCD_DrawLine(x, y + 28, x + 8, y + 35);
+		BSP_LCD_DrawLine(x + 8, y + 35, x + 4, y + 45);
+
+		BSP_LCD_DrawLine(x, y + 28, x - 2, y + 39);
+		BSP_LCD_DrawLine(x - 2, y + 39, x - 7, y + 50);
+	} else if (position == 2) {
+		BSP_LCD_DrawLine(x, y + 10, x + 2, y + 22);
+		BSP_LCD_DrawLine(x + 2, y + 22, x + 10, y + 22);
+
+		BSP_LCD_DrawLine(x, y + 10, x - 3, y + 16);
+		BSP_LCD_DrawLine(x - 3, y + 16, x, y + 24);
+
+		BSP_LCD_DrawLine(x, y + 28, x + 4, y + 39);
+		BSP_LCD_DrawLine(x + 4, y + 39, x + 7, y + 50);
+
+		BSP_LCD_DrawLine(x, y + 28, x, y + 39);
+		BSP_LCD_DrawLine(x, y + 39, x - 10, y + 37);
+	}
+
+}
+
+void change_position()
+{
+	if (position == 1)
+		position = 2;
+	else if (position == 2) {
+		position = 1;
+	}
 }
 
 void jump()
@@ -171,50 +210,4 @@ void EXTI15_10_IRQHandler()
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-}
-
-static void Error_Handler(void)
-{
-}
-
-static void SystemClock_Config(void)
-{
-	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
-	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
-
-	/**Configure the main internal regulator output voltage */
-	__HAL_RCC_PWR_CLK_ENABLE()
-	;
-	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-
-	/**Initializes the CPU, AHB and APB busses clocks */
-	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-	RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-	RCC_OscInitStruct.PLL.PLLM = 8;
-	RCC_OscInitStruct.PLL.PLLN = 216;
-	RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-	RCC_OscInitStruct.PLL.PLLQ = 2;
-
-	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-		Error_Handler();
-	}
-
-	/**Activate the Over-Drive mode */
-	if (HAL_PWREx_EnableOverDrive() != HAL_OK) {
-		Error_Handler();
-	}
-
-	/**Initializes the CPU, AHB and APB busses clocks */
-	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
-
-	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7) != HAL_OK) {
-		Error_Handler();
-	}
 }
