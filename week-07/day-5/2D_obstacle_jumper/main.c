@@ -7,14 +7,21 @@ static void Error_Handler(void);
 static void SystemClock_Config(void);
 
 void draw_track();
-void draw_player(int x, int y);
+void draw_player(int x, int y, uint32_t color);
 void jump();
+void draw_obstacle();
+void moving_obstacle();
 
 int player_x = 45;
 int player_y = 150;
 int last_jump = 0;
 int is_jumping = 0;
-int last_position_change_time = 0;
+int player_last_position_change_time = 0;
+
+int obstacle_x = 465;
+int obstacle_y = 185;
+int obstacle_on_screen = 1;
+int obstacle_last_position_change_time = 0;
 
 RNG_HandleTypeDef randomNumber;
 
@@ -45,16 +52,16 @@ int main(void)
 	random_init();
 
 	while (1) {
-		BSP_LCD_Clear(LCD_COLOR_WHITE);
 		draw_track();
-		draw_player(player_x, player_y);
+		draw_player(player_x, player_y, LCD_COLOR_BLACK);
+		draw_obstacle(obstacle_x, obstacle_y);
 
 		TS_StateTypeDef ts_state;
 
 		BSP_TS_GetState(&ts_state);
 		if (ts_state.touchDetected) {
 			int current_time = HAL_GetTick();
-			if ((last_jump + 1000) < current_time) {
+			if ((last_jump + 100) < current_time) {
 				is_jumping = 1;
 				last_jump = HAL_GetTick();
 			}
@@ -65,19 +72,34 @@ int main(void)
 
 void draw_track()
 {
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 	BSP_LCD_DrawHLine(0, 200, 480);
+
+	//BSP_LCD_SetTextColor(LCD_COLOR_YELLOW);
+	//BSP_LCD_FillCircle(450, 30, 30);
+
+	//BSP_LCD_DrawLine(449, 65, 449, 100);
+	//BSP_LCD_DrawLine(450, 65, 450, 100);
+	//BSP_LCD_DrawLine(451, 65, 451, 100);
+
+	//BSP_LCD_DrawLine(415, 29, 380, 29);
+	//BSP_LCD_DrawLine(415, 30, 380, 30);
+	//BSP_LCD_DrawLine(415, 31, 380, 31);
+
+	//BSP_LCD_DrawLine(415, 29, 380, 29);
+	//BSP_LCD_DrawLine(415, 30, 380, 30);
+	//BSP_LCD_DrawLine(415, 31, 380, 31);
+
+	//BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 }
 
-void draw_player(int x, int y)
+void draw_player(int x, int y, uint32_t color)
 {
-	//Head
+	BSP_LCD_SetTextColor(color);
 	BSP_LCD_DrawCircle(x, y, 6);
-	//Neck and body
 	BSP_LCD_DrawVLine(x, y + 6, 22);
-	//Legs
 	BSP_LCD_DrawLine(x, y + 28, x + 6, y + 50);
 	BSP_LCD_DrawLine(x, y + 28, x - 6, y + 50);
-	//Arms
 	BSP_LCD_DrawLine(x, y + 10, x + 4, y + 22);
 	BSP_LCD_DrawLine(x, y + 10, x - 4, y + 22);
 }
@@ -85,11 +107,11 @@ void draw_player(int x, int y)
 void jump()
 {
 	if (is_jumping) {
+		draw_player(player_x, player_y, LCD_COLOR_WHITE);
 		int current_time = HAL_GetTick();
-		if ((last_position_change_time + 100) > current_time)
+		if ((player_last_position_change_time + 100) > current_time)
 			return;
-		switch (player_y)
-		{
+		switch (player_y) {
 		case 150:
 			player_y = 138;
 			break;
@@ -122,10 +144,24 @@ void jump()
 			is_jumping = 0;
 			break;
 		}
-		last_position_change_time = HAL_GetTick();
-
+		player_last_position_change_time = HAL_GetTick();
 	}
+}
 
+void draw_obstacle(int x, int y)
+{
+	if (obstacle_x < 0) {
+		obstacle_x = 465;
+	}
+	int current_time = HAL_GetTick();
+	if ((obstacle_last_position_change_time + 100) > current_time)
+		return;
+	BSP_LCD_Clear(LCD_COLOR_WHITE);
+	//BSP_LCD_SetTextColor(LCD_COLOR_GRAY);
+	BSP_LCD_FillRect(x, y, 15, 15);
+	obstacle_x -= 5;
+	obstacle_last_position_change_time = HAL_GetTick();
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
 }
 
 void EXTI15_10_IRQHandler()
