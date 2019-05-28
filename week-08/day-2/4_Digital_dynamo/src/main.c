@@ -13,7 +13,7 @@ TIM_OC_InitTypeDef pwm_config;
 GPIO_InitTypeDef PA15_LED_config;
 GPIO_InitTypeDef user_button_handle;
 
-volatile float duty_cycle = 10;
+volatile int duty_cycle = 10;
 
 void init_LED()
 {
@@ -90,7 +90,8 @@ int main()
 	while (1) {
 		__HAL_TIM_SET_COMPARE(&timer_handle_pwm, TIM_CHANNEL_1, duty_cycle);
 		if (duty_cycle > 1)
-			duty_cycle -= 0.00001;
+			duty_cycle -= 1;
+			HAL_Delay(100);
 	}
 }
 
