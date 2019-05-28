@@ -7,13 +7,14 @@
 
 /* the timer's config structure */
 TIM_HandleTypeDef timer_handle_pwm;
+TIM_HandleTypeDef timer_handle_interrupt;
 
 TIM_OC_InitTypeDef pwm_config;
 
 GPIO_InitTypeDef PA15_LED_config;
 GPIO_InitTypeDef user_button_handle;
 
-volatile int duty_cycle = 10;
+volatile int duty_cycle = 20;
 
 void init_LED()
 {
@@ -74,6 +75,26 @@ void init_timer_pwm()
 	HAL_TIM_PWM_Init(&timer_handle_pwm);
 }
 
+void init_timer_interrupt(void)
+{
+	__HAL_RCC_TIM3_CLK_ENABLE()
+	;
+
+	timer_handle_interrupt.Instance = TIM3;
+	timer_handle_interrupt.Init.Prescaler = 10800 - 1; // 108000000/10800=10000 -> speed of 1 count-up: 1/10000 sec = 0.01 ms
+	timer_handle_interrupt.Init.Period = 1000 - 1; // 100 x 0.01 ms = 0.01 second period
+	timer_handle_interrupt.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	timer_handle_interrupt.Init.CounterMode = TIM_COUNTERMODE_UP;
+
+	HAL_TIM_Base_Init(&timer_handle_interrupt);
+
+	/* assign the highest priority to our interrupt line */
+	HAL_NVIC_SetPriority(TIM3_IRQn, 3, 0);
+
+	/* tell the interrupt handling unit to process our interrupts */
+	HAL_NVIC_EnableIRQ(TIM3_IRQn);
+}
+
 int main()
 {
 	HAL_Init();
@@ -83,15 +104,14 @@ int main()
 	init_timer_pwm();
 	init_user_button();
 	init_PWM();
+	init_timer_interrupt();
 
 	/* starting the timer in interrupt mode */
 	HAL_TIM_PWM_Start(&timer_handle_pwm, TIM_CHANNEL_1);
+	HAL_TIM_Base_Start_IT(&timer_handle_interrupt);
 
 	while (1) {
 		__HAL_TIM_SET_COMPARE(&timer_handle_pwm, TIM_CHANNEL_1, duty_cycle);
-		if (duty_cycle > 1)
-			duty_cycle -= 1;
-			HAL_Delay(100);
 	}
 }
 
@@ -104,4 +124,15 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	if (duty_cycle < 90)
 		duty_cycle += 10;
+}
+
+void TIM3_IRQHandler(void)
+{
+	HAL_TIM_IRQHandler(&timer_handle_interrupt);
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (duty_cycle > 1)
+		duty_cycle -= 1;
 }
