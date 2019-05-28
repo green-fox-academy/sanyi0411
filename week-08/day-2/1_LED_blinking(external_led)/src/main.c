@@ -14,8 +14,8 @@ void init_timer()
 	;
 
 	timer_handle.Instance = TIM2;
-	timer_handle.Init.Prescaler = 10800 - 1; // 108000000/10800=10000 -> speed of 1 count-up: 1/10000 sec = 0.1 ms
-	timer_handle.Init.Period = 10000 - 1; // 10000 x 0.1 ms = 1 second period
+	timer_handle.Init.Prescaler = 54000 - 1; // 108000000/54000=2000 -> speed of 1 count-up: 1/2000 sec = 0.5 ms
+	timer_handle.Init.Period = 2000 - 1; // 2000 x 0.5 ms = 1 second period
 	timer_handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	timer_handle.Init.CounterMode = TIM_COUNTERMODE_UP;
 
@@ -52,13 +52,12 @@ int main(void)
 	uint16_t timer_value = 0;
 	while (1) {
 
-		/* blinking the user LED with 0.1 Hz (1 on and 1 off per 100 ms) */
 		timer_value = __HAL_TIM_GET_COUNTER(&timer_handle);
 		if (timer_value == 0) {
-			HAL_GPIO_TogglePin(GPIOF, GPIO_PIN_7);
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_SET);
 		}
-		if (timer_value == 5000) {
-			HAL_GPIO_TogglePin(GPIOF, GPIO_PIN_7);
+		if (timer_value == 1000) {
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_RESET);
 		}
 	}
 }
