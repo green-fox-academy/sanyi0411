@@ -15,8 +15,8 @@ int ind = 0;
 int tickstart = 0;
 int tickend = 0;
 
-int minutes = 0;
-int seconds = 0;
+int minutes = 1;
+int seconds = 1;
 
 int flag = 0;
 
@@ -96,6 +96,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		seconds = 10 * second1 + second2;
 		flag = 1;
 	}
+	if (minutes == 0 && seconds == 0)
+		HAL_NVIC_SystemReset();
 	HAL_UART_Receive_IT(&uart_handle, &buffer, 1);
 }
 
