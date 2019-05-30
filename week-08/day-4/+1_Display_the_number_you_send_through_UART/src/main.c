@@ -22,8 +22,7 @@ uint8_t system_setup_reg = 0x21;
 uint8_t set_reg = 0xA0;
 uint8_t display_set_reg = 0x81;
 
-uint8_t digits[11][8] = {
-		{ 0x0e, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0e },	//0
+uint8_t digits[11][8] = { { 0x0e, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0e },	//0
 		{ 0x04, 0x06, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0e },	//1
 		{ 0x0e, 0x11, 0x10, 0x10, 0x08, 0x04, 0x02, 0x1f },	//2
 		{ 0x0e, 0x11, 0x10, 0x0c, 0x10, 0x10, 0x11, 0x0e },	//3
@@ -36,7 +35,7 @@ uint8_t digits[11][8] = {
 		{ 0x03, 0x03, 0x38, 0x04, 0x04, 0x04, 0x04, 0x38 }  //C
 };
 
-volatile uint8_t read_val = (uint8_t)'0';
+volatile uint8_t read_val = '0';
 
 void init_uart()
 {
@@ -95,8 +94,10 @@ int main(void)
 	HAL_UART_Receive_IT(&uart_handle, &read_val, 1);
 
 	while (1) {
-		for (int i = 0; i < 8; i++) {
-			HAL_I2C_Mem_Write(&I2C_handle, HT16K33_ADDRESS, i * 2, sizeof(uint8_t), &digits[read_val - (uint8_t)'0'][i], 1, 100);
+		if (read_val >= '0' && read_val <= '9') {
+			for (int i = 0; i < 8; i++) {
+				HAL_I2C_Mem_Write(&I2C_handle, HT16K33_ADDRESS, i * 2, sizeof(uint8_t), &digits[read_val - '0'][i], 1, 100);
+			}
 		}
 	}
 }
