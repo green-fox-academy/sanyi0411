@@ -1,18 +1,17 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
-
 int main(int argc, char* argv[])
 {
 	//This line will initialize the VideoCapture object with the default camera
 	//and the default back-end.
 	cv::VideoCapture cap;
-	cap.open(0);
+	cap.open(1);
 
 	if (cap.isOpened() == false)
 	{
 		std::cout << "Cannot open the video camera" << std::endl;
-		std::cin.get(); //wait for any key press
+		std::cin.get();
 		return -1;
 	}
 
@@ -36,7 +35,6 @@ int main(int argc, char* argv[])
 			break;
 		}
 		else
-			//show the frame in the created window
 			imshow(window_name, frame);
 
 		//wait for for 10 ms until any key is pressed.  
@@ -49,7 +47,5 @@ int main(int argc, char* argv[])
 			break;
 		}
 	}
-
 	return 0;
-
 }
