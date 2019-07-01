@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 	}
 
 	cv::Mat opened;
-	cv::Mat closed = image.clone();
+	cv::Mat closed;
 	cv::morphologyEx(image, opened, cv::MORPH_CLOSE, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(5, 5)));
 	cv::morphologyEx(image, closed, cv::MORPH_OPEN, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(5, 5)));
 
