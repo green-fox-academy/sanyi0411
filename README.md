@@ -6,7 +6,7 @@ Please feel free to roam around.<br />
 If you are a fellow Greenfox student in one of the following cohorts, I hope this repo will help you keeping up. I tried to keep it as nice and tidy as possible.
 
 ### Social
-[Github](https://github.com/sanyi0411)
-[Linkedin](www.linkedin.com/in/sandor-derda-sanyi0411)
-[Facebook](https://www.facebook.com/sandor.derda)
-[Instagram](https://www.instagram.com/sanyi_derda/)
+[Github](https://github.com/sanyi0411)<br />
+[Linkedin](www.linkedin.com/in/sandor-derda-sanyi0411)<br />
+[Facebook](https://www.facebook.com/sandor.derda)<br />
+[Instagram](https://www.instagram.com/sanyi_derda/)<br />
