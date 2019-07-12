@@ -1,9 +1,12 @@
-[GOOGLE](https://www.google.com "Google's Homepage")
+# Sandor Derda (sanyi0411)
+Hi! <br />
+I started [Greenfox Academy's](https://www.greenfoxacademy.com/) bootcamp in April 2019 to become a junior software developer.<br />
+In this repo you can see all the work I did there, how I grew better and better as a coder, and you can have a brief understanding of the pace we were learning at.<br />
+Please feel free to roam around.<br />
+If you are a fellow Greenfox student in one of the following cohorts, I hope this repo will help you keeping up. I tried to keep it as nice and tidy as possible.
 
-[MY git-lesson-repo](https://github.com/sanyi0411/git-lesson-repository.git)
-
-[MY Patchwork repo](https://github.com/sanyi0411/patchwork.git)
-
-[RADARS Syllabus repo](https://github.com/green-fox-academy/radars-syllabus.git)
-
-[The cherry on the cake for today](https://github.com/sanyi0411/sanyi0411.github.io.git)
+### Social
+[Github](https://github.com/sanyi0411)
+[Linkedin](www.linkedin.com/in/sandor-derda-sanyi0411)
+[Facebook](https://www.facebook.com/sandor.derda)
+[Instagram](https://www.instagram.com/sanyi_derda/)
