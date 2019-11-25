@@ -30,5 +30,7 @@ int main(int argc, char* argv[])
     // print recognized text
     std::cout << outText << std::endl; // Destroy used object and release memory ocr->End();
 
+    delete ocr;
+    
     return EXIT_SUCCESS;
 }
